@@ -14,6 +14,15 @@ import java.sql.SQLException;
  */
 public class DBConnection {
      public static Connection getConnection() throws SQLException{
+    	 Connection conn = null;
          
+         try {
+        	 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLBH;user=sa;password=123456789"); 
+         } catch (SQLException ex) {
+             Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         
+         return conn;
      }
 }
