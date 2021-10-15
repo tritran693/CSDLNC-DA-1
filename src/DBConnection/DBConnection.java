@@ -5,15 +5,19 @@
  */
 package DBConnection;
 
+import DBController.DBController;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author trisu
  */
 public class DBConnection {
-     public static Connection getConnection() throws SQLException{
+     public static Connection getConnection() throws SQLException, ClassNotFoundException{
     	 Connection conn = null;
          
          try {
