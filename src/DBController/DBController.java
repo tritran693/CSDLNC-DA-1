@@ -5,10 +5,15 @@
  */
 package DBController;
 
+import Class.HoaDon;
 import DBConnection.DBConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,6 +40,28 @@ public class DBController {
             return false;
         }
 
+    }
+    
+    public static ArrayList<HoaDon> getAllHoaDon() throws SQLException{
+        ArrayList<HoaDon> list = new ArrayList<>();
+        
+        Connection conn = DBConnection.getConnection();
+        try{
+            Statement hd = conn.createStatement();
+            ResultSet rs = hd.executeQuery("SELECT * FROM HoaDon");
+            while(rs.next()){
+                String id = rs.getString("MaHD");
+                String maKH = rs.getString("MaKH");
+                String ngayLap = rs.getString("NgayLap");
+                float tongTien = rs.getInt("TongTien");
+                
+                HoaDon hoadon = new HoaDon(id,maKH,ngayLap,tongTien);
+                list.add(hoadon);
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
     
 }

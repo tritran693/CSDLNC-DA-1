@@ -16,7 +16,7 @@ public class HoaDon {
     private String maKH;
     private String ngayLap;
         
-    private int tongTien;
+    private float tongTien;
 
     public String getId() {
         return id;
@@ -42,18 +42,21 @@ public class HoaDon {
         this.ngayLap = ngayLap;
     }
 
-    public int getTongTien() {
+    public float getTongTien() {
         return tongTien;
     }
 
-    public void setTongTien(int tongTien) {
+    public void setTongTien(float tongTien) {
         this.tongTien = tongTien;
     }
 
-    public HoaDon(String id, String maKH, String ngayLap, int tongTien) {
+    public HoaDon(String id, String maKH, String ngayLap, float tongTien) {
         this.id = id;
         this.maKH = maKH;
         this.ngayLap = ngayLap;
         this.tongTien = tongTien;
+    }
+    public Object[] toArray(){
+        return new Object[]{id,maKH,ngayLap,tongTien};
     }
 }
