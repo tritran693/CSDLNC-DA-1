@@ -17,16 +17,15 @@ import java.util.logging.Logger;
  * @author trisu
  */
 public class DBConnection {
-     public static Connection getConnection() throws SQLException, ClassNotFoundException{
-    	 Connection conn = null;
-         
-         try {
-        	 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLBH;user=sa;password=123456789"); 
-         } catch (SQLException ex) {
-             Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         
-         return conn;
-     }
+
+     public static Connection getConnection() throws SQLException{
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=QLBH;user=sa;password=123456789";
+            return DriverManager.getConnection(url);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

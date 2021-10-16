@@ -14,7 +14,7 @@ import java.sql.Date;
 public class HoaDon {
     private String id;
     private String maKH;
-    private Date ngayLap;
+    private String ngayLap;
         
     private int tongTien;
 
@@ -34,11 +34,11 @@ public class HoaDon {
         this.maKH = maKH;
     }
 
-    public Date getNgayLap() {
+    public String getNgayLap() {
         return ngayLap;
     }
 
-    public void setNgayLap(Date ngayLap) {
+    public void setNgayLap(String ngayLap) {
         this.ngayLap = ngayLap;
     }
 
@@ -50,7 +50,7 @@ public class HoaDon {
         this.tongTien = tongTien;
     }
 
-    public HoaDon(String id, String maKH, Date ngayLap, int tongTien) {
+    public HoaDon(String id, String maKH, String ngayLap, int tongTien) {
         this.id = id;
         this.maKH = maKH;
         this.ngayLap = ngayLap;

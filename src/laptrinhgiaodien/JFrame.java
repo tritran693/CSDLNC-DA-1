@@ -5,6 +5,12 @@
  */
 package laptrinhgiaodien;
 
+import DBController.DBController;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -292,8 +298,13 @@ public class JFrame extends javax.swing.JFrame {
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // TODO add your handling code here:
         if(validateForm()){
-            
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            String maHD = jTextField1.getText();
+            String maKH = jTextField2.getText();
+            String date = jTextField3.getText();
+
+            if(!DBController.insert(maHD, maKH, date)){
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+            }else JOptionPane.showMessageDialog(this, "Thêm thành công");
         }else{
             JOptionPane.showMessageDialog(this, "Bạn cần nhập đủ thông tin");
         }
