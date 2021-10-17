@@ -5,6 +5,7 @@
  */
 package laptrinhgiaodien;
 
+import Class.DoanhThuThang;
 import Class.HoaDon;
 import DBController.DBController;
 import java.sql.Date;
@@ -58,7 +59,6 @@ public class JFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         btnFind = new javax.swing.JButton();
-        jLabelTong = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableResult = new javax.swing.JTable();
@@ -206,9 +206,6 @@ public class JFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabelTong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelTong.setText("Tổng doanh thu:");
-
         btnReset.setText("Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,7 +218,7 @@ public class JFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "MaHD", "MaKH", "NgayLap", "TongTiien"
+                "Tháng", "Doanh thu"
             }
         ));
         jScrollPane2.setViewportView(TableResult);
@@ -242,28 +239,29 @@ public class JFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(185, 185, 185)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnFind)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReset))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelTong, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(jLabelDT, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                        .addGap(140, 140, 140)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelDT, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(20, 20, 20)
+                                        .addComponent(btnFind)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnReset)))
+                                .addGap(54, 54, 54)))))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,11 +276,9 @@ public class JFrame extends javax.swing.JFrame {
                     .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jLabelDT, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabelTong, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Thống kê hóa đơn", jPanel2);
@@ -328,8 +324,10 @@ public class JFrame extends javax.swing.JFrame {
             String maHD = jTextField1.getText();
             String maKH = jTextField2.getText();
             String date = jTextField3.getText();
+            String[] dateArray = date.split("/");
+            String date_handle = dateArray[1]+"/"+dateArray[0]+"/"+dateArray[2];
 
-            if(!DBController.insert(maHD, maKH, date)){
+            if(!DBController.insert(maHD, maKH, date_handle)){
                 JOptionPane.showMessageDialog(this, "Thêm thất bại");
             }else JOptionPane.showMessageDialog(this, "Thêm thành công");
         }else{
@@ -351,6 +349,7 @@ public class JFrame extends javax.swing.JFrame {
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
+        txtYear.setText("");
       
     }//GEN-LAST:event_btnResetActionPerformed
 
@@ -374,24 +373,17 @@ public class JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        String Year=txtYear.getText();
+        String Year = txtYear.getText();
         if(Year.length()>0){
             DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("Mã hóa đơn");
-            model.addColumn("Mã khách hàng");
-            model.addColumn("Ngày lập");
-            model.addColumn("Tổng Tiền");
-        
-            ArrayList<HoaDon> list = null;
-            for (int i=1;i<12;i++){
-                Month(i);
-                list = DBController.getHoaDon(String.valueOf(i),Year);
-                for(HoaDon hd:list){
-                    model.addRow(hd.toArray());
-                }
-                TableResult.setModel(model);
-                Tong();
+            model.addColumn("Tháng");
+            model.addColumn("Doanh thu");
+            ArrayList<DoanhThuThang> list = null;
+            list = DBController.Revenu_month_list(Year);
+            for(DoanhThuThang dt:list){
+                model.addRow(dt.toArray());
             }
+            TableResult.setModel(model);
         }
     }//GEN-LAST:event_btnFindActionPerformed
 
@@ -448,7 +440,6 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelDT;
-    private javax.swing.JLabel jLabelTong;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -462,19 +453,5 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
-    private void Tong()
-    {
-        DecimalFormat x=new DecimalFormat("###,###,###");
-        float Tong=0;
-        for(int i=0;i<TableResult.getRowCount();i++){
-            Tong+=Float.parseFloat(TableResult.getValueAt(i, 4).toString());
-        }
-        jLabelTong.setText("Tổng doanh thu: "+x.format(Tong)+" "+"VND");
-    }
-    private void Month(int month)
-    {
-         DecimalFormat x=new DecimalFormat("###,###,###");
-       
-        jLabelDT.setText("Doanh thu thang "+x.format(month));
-    }
+
 }

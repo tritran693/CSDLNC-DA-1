@@ -5,6 +5,7 @@
  */
 package DBController;
 
+import Class.DoanhThuThang;
 import Class.HoaDon;
 import DBConnection.DBConnection;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +55,7 @@ public class DBController {
                 String id = rs.getString("MaHD");
                 String maKH = rs.getString("MaKH");
                 String ngayLap = rs.getString("NgayLap");
-                float tongTien = rs.getInt("TongTien");
+                float tongTien = rs.getFloat("TongTien");
                 
                 HoaDon hoadon = new HoaDon(id,maKH,ngayLap,tongTien);
                 list.add(hoadon);
@@ -65,26 +67,22 @@ public class DBController {
     }
     
 
-    public static ArrayList<HoaDon> getHoaDon(String valueOf, String Year) {
-         ArrayList<HoaDon> list = new ArrayList<>();
-        Connection conn = null;
-        try {
-            conn = DBConnection.getConnection();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static ArrayList<DoanhThuThang> Revenu_month_list(String year) {
+        ArrayList<DoanhThuThang> list = new ArrayList<>();
         try{
+            Connection conn = DBConnection.getConnection();
             Statement hd = conn.createStatement();
-            ResultSet rs = hd.executeQuery("SELECT * FROM HoaDon"
-                    + "WHERE MONTH(NgayLap)= month & YEAR(NgayLap)=year");
+            String query = "select MONTH(hd.NgayLap) as thang, sum(hd.TongTien) as tong from HoaDon hd where YEAR(hd.NgayLap) = ? group by MONTH(hd.NgayLap) order by MONTH(hd.NgayLap)";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, year);
+            ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
-                String id = rs.getString("MaHD");
-                String maKH = rs.getString("MaKH");
-                String ngayLap = rs.getString("NgayLap");
-                float tongTien = rs.getInt("TongTien");
-                
-                HoaDon hoadon = new HoaDon(id,maKH,ngayLap,tongTien);
-                list.add(hoadon);
+                String month = rs.getString("thang");
+                Double money = rs.getDouble("tong");
+                DecimalFormat dc = new DecimalFormat("0.00");
+                String money_String = dc.format(money);
+                DoanhThuThang dt = new DoanhThuThang(month, money_String);
+                list.add(dt);
             }
         }catch (SQLException ex) {
             Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);

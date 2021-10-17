@@ -15,7 +15,6 @@ public class HoaDon {
     private String id;
     private String maKH;
     private String ngayLap;
-        
     private float tongTien;
 
     public String getId() {
