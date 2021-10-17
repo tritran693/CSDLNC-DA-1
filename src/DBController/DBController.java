@@ -64,4 +64,36 @@ public class DBController {
         return list;
     }
     
+
+    public static ArrayList<HoaDon> getHoaDon(String valueOf, String Year) {
+         ArrayList<HoaDon> list = new ArrayList<>();
+        Connection conn = null;
+        try {
+            conn = DBConnection.getConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try{
+            Statement hd = conn.createStatement();
+            ResultSet rs = hd.executeQuery("SELECT * FROM HoaDon"
+                    + "WHERE MONTH(NgayLap)= month & YEAR(NgayLap)=year");
+            while(rs.next()){
+                String id = rs.getString("MaHD");
+                String maKH = rs.getString("MaKH");
+                String ngayLap = rs.getString("NgayLap");
+                float tongTien = rs.getInt("TongTien");
+                
+                HoaDon hoadon = new HoaDon(id,maKH,ngayLap,tongTien);
+                list.add(hoadon);
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+ 
+
+    
+    
 }
