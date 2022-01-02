@@ -11,12 +11,12 @@ import java.text.DecimalFormat;
  *
  * @author trisu
  */
-public class DoanhThuThang {
+public class DoanhThuThang1 {
 
     private String month;
-    private String money;
+    private long money;
 
-    public DoanhThuThang(String month, String money) {
+    public DoanhThuThang1(String month, long money) {
         this.month = month;
         this.money = money;
     }
@@ -29,15 +29,19 @@ public class DoanhThuThang {
         this.month = month;
     }
 
-    public String getMoney() {
+    public long getMoney() {
         return money;
     }
 
-    public void setMoney(String money) {
+    public void setMoney(long money) {
         this.money = money;
     }
 
+   
+
     public Object[] toArray() {
-        return new Object[]{month, money};
+        DecimalFormat format = new DecimalFormat("###,###,###");
+        String moneyString = format.format(money);
+        return new Object[]{month, moneyString};
     }
 }

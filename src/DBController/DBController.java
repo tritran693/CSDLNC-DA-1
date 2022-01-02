@@ -6,6 +6,7 @@
 package DBController;
 
 import Class.DoanhThuThang;
+import Class.DoanhThuThang1;
 import Class.HoaDon;
 import DBConnection.DBConnection;
 import java.sql.Connection;
@@ -50,7 +51,7 @@ public class DBController {
         Connection conn = DBConnection.getConnection();
         try{
             Statement hd = conn.createStatement();
-            ResultSet rs = hd.executeQuery("SELECT * FROM HoaDon");
+            ResultSet rs = hd.executeQuery("SELECT MaHD, MaKH, FORMAT(NgayLap, 'dd-MM-yyy hh:mm:ss') as NgayLap, TongTien FROM HoaDon");
             while(rs.next()){
                 String id = rs.getString("MaHD");
                 String maKH = rs.getString("MaKH");
@@ -82,6 +83,27 @@ public class DBController {
                 DecimalFormat dc = new DecimalFormat("0.00");
                 String money_String = dc.format(money);
                 DoanhThuThang dt = new DoanhThuThang(month, money_String);
+                list.add(dt);
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public static ArrayList<DoanhThuThang1> Revenu_month_list1(String year) {
+        ArrayList<DoanhThuThang1> list = new ArrayList<>();
+        try{
+            Connection conn = DBConnection.getConnection();
+            Statement hd = conn.createStatement();
+            String query = "select MONTH(hd.NgayLap) as thang, sum(hd.TongTien) as tong from HoaDon hd where YEAR(hd.NgayLap) = ? group by MONTH(hd.NgayLap) order by MONTH(hd.NgayLap)";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, year);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                String month = rs.getString("thang");
+                Long money = rs.getLong("tong");
+                DoanhThuThang1 dt = new DoanhThuThang1(month, money);
                 list.add(dt);
             }
         }catch (SQLException ex) {
